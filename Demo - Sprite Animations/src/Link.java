@@ -11,9 +11,10 @@ import javax.swing.JComponent;
 import javax.swing.Timer;
 
 
-public class Link implements ActionListener {
+public class Link {
 	  
-	  private final int ACTION_TIMEOUT = 500;
+	  private final int BLOCK_TIMEOUT = 30;
+	  private final int SWING_TIMEOUT = 20;
 	
 	  // Load the sounds from the disk. 
 	  private final EasySound2 slashSound = new EasySound2("slash.wav");
@@ -26,11 +27,9 @@ public class Link implements ActionListener {
 	  private int x, y; // The bottom left corner of link
 	  private int action;
 	  
-	  private JComponent surface; // for repainting
-	  
-	  private Timer actionTimer;
+	  private int actionTimer;
 	
-	  public Link(int x, int y, JComponent surface) {
+	  public Link(int x, int y) {
 		  sprites = new ImageIcon("link.png").getImage();
 		  
 		  spriteRects = new Rectangle[3]; // Coordinates of each action within the sprite sheet image
@@ -41,10 +40,6 @@ public class Link implements ActionListener {
 		  this.x = x;
 		  this.y = y;
 		  action = 0;
-		  
-		  this.surface = surface;
-		  actionTimer = new Timer(ACTION_TIMEOUT,this);
-		  actionTimer.setRepeats(false);
 	  }
 	  
 	  /*
@@ -61,7 +56,7 @@ public class Link implements ActionListener {
 		  if (action == 0) {
 			  action = 1;
 			  slashSound.play();
-			  actionTimer.restart();
+			  actionTimer = SWING_TIMEOUT;
 		  }
 	  }
 	  
@@ -72,7 +67,7 @@ public class Link implements ActionListener {
 		  if (action == 0) {
 			  action = 2;
 			  blockSound.play();
-			  actionTimer.restart();
+			  actionTimer = BLOCK_TIMEOUT;
 		  }
 	  }
 	  
@@ -90,13 +85,15 @@ public class Link implements ActionListener {
 		    g2.setTransform(at);
 	  }
 	  
-	  @Override
-	  public void actionPerformed(ActionEvent e) {
-		  stand();
-		  surface.repaint();
+	  
+	  public void act() {
+		  if (actionTimer > 0) {
+			  actionTimer--;
+			  if (actionTimer == 0) {
+				  stand();
+			  }
+		  }
 	  }
 	  
-	  
-
 	  
 }
