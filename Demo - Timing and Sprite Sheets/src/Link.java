@@ -13,7 +13,7 @@ import javax.swing.Timer;
 
 public class Link {
 	  
-	  private final int BLOCK_TIMEOUT = 30;
+	  private final int BLOCK_TIMEOUT = 40;
 	  private final int SWING_TIMEOUT = 20;
 	
 	  // Load the sounds from the disk. 
@@ -25,7 +25,7 @@ public class Link {
 	  private Rectangle[] spriteRects;
 	  
 	  private int x, y; // The bottom left corner of link
-	  private int action;
+	  private int action;  // 0 = Standing, 1 = Slashing, 2 = Blocking
 	  
 	  private int actionTimer;
 	
