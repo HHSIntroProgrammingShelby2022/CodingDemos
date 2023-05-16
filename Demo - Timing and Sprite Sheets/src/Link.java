@@ -16,7 +16,7 @@ public class Link {
 	  private final int BLOCK_TIMEOUT = 40;
 	  private final int SWING_TIMEOUT = 20;
 	
-	  // Load the sounds from the disk. 
+	  // Load the sounds from the disk.
 	  private final EasySound2 slashSound = new EasySound2("slash.wav");
 	  private final EasySound2 blockSound = new EasySound2("block.wav");
 	  
